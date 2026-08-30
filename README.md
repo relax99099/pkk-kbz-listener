@@ -8,7 +8,7 @@ Android 8.0 / API 26 သို့မဟုတ် အထက် ဖုန်းလ
 
 ## Configuration
 
-Settings တွင် API URL၊ Device ID နှင့် Device Secret ထည့်ပါ။ Production URL သည် `https://` ဖြစ်ရမည်။ Device Secret ကို Android Keystore-backed secure storage တွင် သိမ်းရန် ရည်ရွယ်ထားပြီး source code၊ GitHub၊ UI dashboard၊ log များတွင် မထည့်ရပါ။ Test Server Connection ဖြင့် endpoint ကို စမ်းပါ။
+Settings တွင် API URL၊ Device ID နှင့် Device Secret ထည့်ပါ။ Production URL သည် `https://` ဖြစ်ရမည်။ ဒီ project ၏ default endpoint သည် `https://pay.kiwihub.top/api/kbzpay/sms` ဖြစ်ပြီး Settings မှ ပြန်လည်ပြင်နိုင်သည်။ Device Secret ကို Android Keystore-backed secure storage တွင် သိမ်းရန် ရည်ရွယ်ထားပြီး source code၊ GitHub၊ UI dashboard၊ log များတွင် မထည့်ရပါ။ Test Server Connection ဖြင့် endpoint ကို စမ်းပါ။
 
 ## Parsing rules
 

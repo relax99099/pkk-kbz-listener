@@ -15,3 +15,5 @@
 - [x] Create/update private GitHub repository pkk-kbz-listener
 - [ ] Push source code; GitHub Actions tests/type-check/prebuild passed, APK build did not finish
 - [ ] Verify APK artifact PKK-KBZ-Listener-debug
+
+- [ ] Set VPS API endpoint to https://pay.kiwihub.top/api/kbzpay/sms and validate HTTPS upload configuration
