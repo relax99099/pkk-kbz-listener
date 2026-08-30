@@ -11,9 +11,9 @@
 - [x] Add branded app icon assets and update app configuration
 - [x] Add GitHub Actions APK build and artifact workflow
 - [x] Add complete README and VPS API contract documentation
-- [x] Run type checks and parser unit tests; Android build was attempted but cancelled after a 13-minute Gradle hang
+- [x] Run type checks, parser unit tests, and Android build validation; latest Actions run succeeded
 - [x] Create/update private GitHub repository pkk-kbz-listener
-- [x] Push source code; GitHub Actions tests/type-check/prebuild passed, APK build did not finish
-- [ ] Verify APK artifact PKK-KBZ-Listener-debug
+- [x] Push source code and verify successful GitHub Actions run
+- [x] Verify APK artifact PKK-KBZ-Listener-debug
 
 - [x] Set VPS API endpoint to https://pay.kiwihub.top/api/kbzpay/sms and validate HTTPS URL configuration
