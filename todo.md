@@ -17,3 +17,5 @@
 - [x] Verify APK artifact PKK-KBZ-Listener-debug
 
 - [x] Set VPS API endpoint to https://pay.kiwihub.top/api/kbzpay/sms and validate HTTPS URL configuration
+
+- [ ] Investigate and fix APK installed-but-not-opening startup crash
