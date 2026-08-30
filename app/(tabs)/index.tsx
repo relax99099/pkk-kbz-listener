@@ -1,48 +1,19 @@
-import { ScrollView, Text, View, TouchableOpacity } from "react-native";
-
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
+import { useColors } from "@/hooks/use-colors";
 
-/**
- * Home Screen - NativeWind Example
- *
- * This template uses NativeWind (Tailwind CSS for React Native).
- * You can use familiar Tailwind classes directly in className props.
- *
- * Key patterns:
- * - Use `className` instead of `style` for most styling
- * - Theme colors: use tokens directly (bg-background, text-foreground, bg-primary, etc.); no dark: prefix needed
- * - Responsive: standard Tailwind breakpoints work on web
- * - Custom colors defined in tailwind.config.js
- */
 export default function HomeScreen() {
-  return (
-    <ScreenContainer className="p-6">
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="flex-1 gap-8">
-          {/* Hero Section */}
-          <View className="items-center gap-2">
-            <Text className="text-4xl font-bold text-foreground">Welcome</Text>
-            <Text className="text-base text-muted text-center">
-              Edit app/(tabs)/index.tsx to get started
-            </Text>
-          </View>
-
-          {/* Example Card */}
-          <View className="w-full max-w-sm self-center bg-surface rounded-2xl p-6 shadow-sm border border-border">
-            <Text className="text-lg font-semibold text-foreground mb-2">NativeWind Ready</Text>
-            <Text className="text-sm text-muted leading-relaxed">
-              Use Tailwind CSS classes directly in your React Native components.
-            </Text>
-          </View>
-
-          {/* Example Button */}
-          <View className="items-center">
-            <TouchableOpacity className="bg-primary px-6 py-3 rounded-full active:opacity-80">
-              <Text className="text-background font-semibold">Get Started</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    </ScreenContainer>
-  );
+  const colors = useColors();
+  const styles = makeStyles(colors);
+  return <ScreenContainer edges={["top", "left", "right", "bottom"]}><ScrollView contentContainerStyle={styles.content}>
+    <View style={styles.header}><View><Text style={styles.eyebrow}>MERCHANT DEVICE</Text><Text style={styles.title}>PKK KBZ Listener</Text></View><Pressable onPress={() => router.push("/settings")} style={styles.settings}><Text style={styles.settingsText}>⚙</Text></Pressable></View>
+    <View style={styles.hero}><View style={styles.statusLine}><View style={[styles.dot, { backgroundColor: colors.success }]} /><Text style={styles.label}>LISTENER STATUS</Text></View><Text style={styles.heroTitle}>Running</Text><Text style={styles.heroBody}>Waiting for valid KBZPay merchant payment SMS.</Text></View>
+    <View style={styles.row}><View style={styles.card}><Text style={styles.label}>SERVER STATUS</Text><Text style={[styles.value, { color: colors.warning }]}>Waiting</Text><Text style={styles.muted}>Configure VPS</Text></View><View style={styles.card}><Text style={styles.label}>UPLOAD STATUS</Text><Text style={styles.value}>No payment</Text><Text style={styles.muted}>Queue is empty</Text></View></View>
+    <View style={styles.sectionHead}><Text style={styles.section}>Last Payment</Text><Text style={styles.muted}>No data yet</Text></View><View style={styles.empty}><Text style={styles.emptyIcon}>₭</Text><Text style={styles.emptyTitle}>Waiting for first payment</Text><Text style={styles.mutedCenter}>A validated transaction will appear after it is saved locally.</Text></View>
+    <View style={styles.sectionHead}><Text style={styles.section}>Recent Event Log</Text><Text style={styles.link}>View all</Text></View><View style={styles.event}><View style={[styles.dot, { backgroundColor: colors.success }]} /><View><Text style={styles.eventTitle}>Listener ready</Text><Text style={styles.muted}>Waiting for a valid merchant SMS</Text></View></View><View style={styles.event}><View style={[styles.dot, { backgroundColor: colors.border }]} /><View><Text style={styles.eventTitle}>Secure queue ready</Text><Text style={styles.muted}>Local-first upload protection enabled</Text></View></View>
+    <Pressable onPress={() => router.push("/settings")} style={({ pressed }) => [styles.button, pressed && styles.pressed]}><Text style={styles.buttonText}>Open setup & settings</Text></Pressable>
+  </ScrollView></ScreenContainer>;
 }
+
+function makeStyles(colors: ReturnType<typeof useColors>) { return StyleSheet.create({ content: { padding: 20, gap: 14 }, header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" }, eyebrow: { color: colors.primary, fontSize: 11, fontWeight: "800", letterSpacing: 1 }, title: { color: colors.foreground, fontSize: 27, fontWeight: "800", marginTop: 4 }, settings: { width: 46, height: 46, borderRadius: 23, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, alignItems: "center", justifyContent: "center" }, settingsText: { color: colors.foreground, fontSize: 21 }, hero: { backgroundColor: colors.primary, borderRadius: 20, padding: 20 }, statusLine: { flexDirection: "row", alignItems: "center", gap: 8 }, dot: { width: 9, height: 9, borderRadius: 5 }, label: { color: colors.muted, fontSize: 11, fontWeight: "800", letterSpacing: .8 }, heroTitle: { color: "#fff", fontSize: 25, fontWeight: "800", marginTop: 10 }, heroBody: { color: "#DCE4FF", fontSize: 13, marginTop: 4 }, row: { flexDirection: "row", gap: 12 }, card: { flex: 1, backgroundColor: colors.surface, borderRadius: 16, borderWidth: 1, borderColor: colors.border, padding: 15, minHeight: 105 }, value: { color: colors.foreground, fontSize: 17, fontWeight: "800", marginTop: 12, marginBottom: 3 }, muted: { color: colors.muted, fontSize: 13, lineHeight: 19 }, sectionHead: { flexDirection: "row", justifyContent: "space-between", alignItems: "baseline", marginTop: 5 }, section: { color: colors.foreground, fontSize: 18, fontWeight: "800" }, link: { color: colors.primary, fontSize: 13, fontWeight: "700" }, empty: { backgroundColor: colors.surface, borderRadius: 18, borderWidth: 1, borderColor: colors.border, padding: 23, alignItems: "center" }, emptyIcon: { color: colors.primary, fontSize: 25, fontWeight: "800", marginBottom: 7 }, emptyTitle: { color: colors.foreground, fontSize: 16, fontWeight: "700", marginBottom: 4 }, mutedCenter: { color: colors.muted, textAlign: "center", fontSize: 13, lineHeight: 19 }, event: { flexDirection: "row", gap: 12, paddingVertical: 9, borderBottomWidth: 1, borderBottomColor: colors.border }, eventTitle: { color: colors.foreground, fontSize: 14, fontWeight: "700" }, button: { backgroundColor: colors.primary, borderRadius: 14, alignItems: "center", paddingVertical: 15, marginTop: 4 }, buttonText: { color: "#fff", fontWeight: "800", fontSize: 15 }, pressed: { opacity: .75, transform: [{ scale: .98 }] } }); }

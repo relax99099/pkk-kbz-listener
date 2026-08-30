@@ -1,0 +1,14 @@
+import { useState } from "react";
+import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { router } from "expo-router";
+import { ScreenContainer } from "@/components/screen-container";
+import { useColors } from "@/hooks/use-colors";
+
+export default function SettingsScreen() {
+  const colors = useColors();
+  const [apiUrl, setApiUrl] = useState("");
+  const [deviceId, setDeviceId] = useState("");
+  const [secret, setSecret] = useState("");
+  const styles = StyleSheet.create({ content: { padding: 20, gap: 10 }, header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" }, back: { color: colors.primary, fontSize: 30 }, title: { color: colors.foreground, fontSize: 21, fontWeight: "800" }, label: { color: colors.foreground, fontSize: 13, fontWeight: "700", marginTop: 10 }, input: { color: colors.foreground, backgroundColor: colors.surface, borderColor: colors.border, borderWidth: 1, borderRadius: 13, padding: 13 }, note: { color: colors.muted, fontSize: 13, lineHeight: 19, backgroundColor: colors.surface, padding: 14, borderRadius: 14 }, button: { backgroundColor: colors.primary, padding: 15, alignItems: "center", borderRadius: 14, marginTop: 10 }, buttonText: { color: "#fff", fontWeight: "800" } });
+  return <ScreenContainer edges={["top", "left", "right", "bottom"]}><ScrollView contentContainerStyle={styles.content}><View style={styles.header}><Pressable onPress={() => router.back()}><Text style={styles.back}>‹</Text></Pressable><Text style={styles.title}>Settings</Text><View style={{ width: 25 }} /></View><Text style={styles.note}>Configure the secure VPS endpoint for this merchant phone. Device Secret is masked and must never be committed or logged.</Text><Text style={styles.label}>API URL</Text><TextInput value={apiUrl} onChangeText={setApiUrl} placeholder="https://pay.example.com/api/kbzpay/sms" placeholderTextColor={colors.muted} autoCapitalize="none" keyboardType="url" style={styles.input} /><Text style={styles.label}>DEVICE ID</Text><TextInput value={deviceId} onChangeText={setDeviceId} placeholder="KBZ-PHONE-01" placeholderTextColor={colors.muted} style={styles.input} /><Text style={styles.label}>DEVICE SECRET</Text><TextInput value={secret} onChangeText={setSecret} placeholder="Stored securely on this phone" placeholderTextColor={colors.muted} secureTextEntry style={styles.input} /><Pressable onPress={() => { if (!apiUrl.startsWith("https://") || !deviceId || !secret) Alert.alert("Incomplete settings", "Use an HTTPS URL and fill all fields."); else Alert.alert("Saved", "Settings are ready for secure storage in the native build."); }} style={styles.button}><Text style={styles.buttonText}>Save settings</Text></Pressable></ScrollView></ScreenContainer>;
+}
